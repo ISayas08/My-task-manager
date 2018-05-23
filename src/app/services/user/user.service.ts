@@ -12,6 +12,10 @@ export class UserService {
     this.userList = this.getAll() || [];
   }
 
+  //==========================================================
+  // Shared methods.
+  //==========================================================
+
   public addOne(newUser: UserModel) {
     if (newUser) {
       this.userList.push(newUser);
@@ -22,6 +26,10 @@ export class UserService {
   public getAll() {
     return localStorage.users ? JSON.parse(localStorage.users) : [];
   }
+
+  //==========================================================
+  // Local methods.
+  //==========================================================
 
   private saveAtStorage() {
     localStorage.setItem('users', JSON.stringify(this.userList));

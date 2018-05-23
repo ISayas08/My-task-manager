@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { UserService } from '../../services/user/user.service';
 import { UserModel } from '../../models/user.model';
 import { SessionService } from '../../services/session/session.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -19,7 +20,8 @@ export class HomeComponent implements OnInit {
   constructor(
     private _formBuild: FormBuilder,
     private _user: UserService,
-    private _session: SessionService
+    private _session: SessionService,
+    private _router: Router
   ) {
     this.isTitleVisible = true;
     this.isLogInActive = true;
@@ -81,6 +83,7 @@ export class HomeComponent implements OnInit {
 
     if (this._session.logIn(userData.user, userData.pass)) {
       alert('LogIn Successfull');
+      this._router.navigate(['tasks']);
     } else {
       alert('The user and the password don\'t match.');
     }

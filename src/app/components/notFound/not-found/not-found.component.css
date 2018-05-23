@@ -1,0 +1,35 @@
+.not-found-container {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-flow: wrap;
+    justify-content: center;
+    align-content: flex-start;
+    height: 100vh;
+}
+
+.not-found-container__header,
+.not-found-container__section,
+.not-found-container__footer {
+    width: 100%;
+    text-align: center;
+}
+
+.not-fount-container__title {
+    font-size: 8rem;
+    margin-bottom: .1em;
+}
+
+.not-fount-container__paragraph {
+    font-size: 1.8rem;
+    margin-bottom: .5em;
+}
+
+.not-fount-container__back-button {
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.not-fount-container__back-button:hover {
+    color: blue;
+}

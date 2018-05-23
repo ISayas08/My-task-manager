@@ -11,6 +11,10 @@ export class SessionService {
     private _user: UserService
   ) { }
 
+  //==========================================================
+  // Shared methods.
+  //==========================================================
+
   public logIn(user: string, pass: string): boolean {
     const users = this._user.getAll();
 
@@ -26,9 +30,17 @@ export class SessionService {
     return false;
   }
 
-  logOut() {
-    localStorage.setItem('activeUser', null);
+  public logOut() {
+    localStorage.removeItem('activeUser');
   }
+
+  public getActiveUser() {
+    return localStorage.activeUser;
+  }
+
+  //==========================================================
+  // Local methods.
+  //==========================================================
 
   private saveSession(user: UserModel) {
     if (user) {
