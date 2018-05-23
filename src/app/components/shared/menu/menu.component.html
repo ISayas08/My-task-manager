@@ -1,0 +1,16 @@
+<div class="dashboard-menu dashboard-menu--dark-theme">
+  <div class="dashboard-menu__header">
+    <h1 class="dashboard-menu__title">My Task Manager</h1>
+  </div>
+  <nav class="dashboard-menu__nav">
+    <div class="dashboard-menu__link-main-container">
+      <a routerLink="tasksList" routerLinkActive="dashboard-menu__link--active" [routerLinkActiveOptions]="{ exact: false }" class="dashboard-menu__link">Home</a>
+      <a routerLink="projects" routerLinkActive="dashboard-menu__link--active" [routerLinkActiveOptions]="{ exact: false }" class="dashboard-menu__link">Projects</a>
+      <a routerLink="profile" routerLinkActive="dashboard-menu__link--active" [routerLinkActiveOptions]="{ exact: false }" class="dashboard-menu__link">My profile</a>
+      <a routerLink="calendar" routerLinkActive="dashboard-menu__link--active" [routerLinkActiveOptions]="{ exact: false }" class="dashboard-menu__link">Calendar</a>
+    </div>
+    <div class="dashboard-menu__link-secundary-container">
+      <a (click)="logout()" class="dashboard-menu__link">Logout</a>
+    </div>
+  </nav>
+</div>

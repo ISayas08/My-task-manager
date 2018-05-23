@@ -6,15 +6,25 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
-import { LogedHomeComponent } from './components/logedHome/loged-home/loged-home.component';
-import { NotFoundComponent } from './components/notFound/not-found/not-found.component';
+import { LogedHomeComponent } from './components/logedHome/loged-home.component';
+import { NotFoundComponent } from './components/notFound/not-found.component';
+import { MenuComponent } from './components/shared/menu/menu.component';
+import { TasksListComponent } from './components/logedHome/tasks-list/tasks-list.component';
+import { ProjectsComponent } from './components/logedHome/projects/projects.component';
+import { ProfileComponent } from './components/logedHome/profile/profile.component';
+import { CalendarComponent } from './components/logedHome/calendar/calendar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     LogedHomeComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    MenuComponent,
+    TasksListComponent,
+    ProjectsComponent,
+    ProfileComponent,
+    CalendarComponent
   ],
   imports: [
     BrowserModule,
