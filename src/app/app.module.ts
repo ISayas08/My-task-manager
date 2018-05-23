@@ -13,6 +13,7 @@ import { TasksListComponent } from './components/logedHome/tasks-list/tasks-list
 import { ProjectsComponent } from './components/logedHome/projects/projects.component';
 import { ProfileComponent } from './components/logedHome/profile/profile.component';
 import { CalendarComponent } from './components/logedHome/calendar/calendar.component';
+import { TaskEditComponent } from './components/logedHome/task-edit/task-edit.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { CalendarComponent } from './components/logedHome/calendar/calendar.comp
     TasksListComponent,
     ProjectsComponent,
     ProfileComponent,
-    CalendarComponent
+    CalendarComponent,
+    TaskEditComponent
   ],
   imports: [
     BrowserModule,

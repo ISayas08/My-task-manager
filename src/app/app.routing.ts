@@ -9,6 +9,7 @@ import { TasksListComponent } from './components/logedHome/tasks-list/tasks-list
 import { ProjectsComponent } from './components/logedHome/projects/projects.component';
 import { ProfileComponent } from './components/logedHome/profile/profile.component';
 import { CalendarComponent } from './components/logedHome/calendar/calendar.component';
+import { TaskEditComponent } from './components/logedHome/task-edit/task-edit.component';
 
 
 const routes: Routes = [
@@ -19,8 +20,9 @@ const routes: Routes = [
         component: LogedHomeComponent,
         canActivate: [AuthGuardService],
         children: [
-            { path: '', redirectTo: 'tasksList', pathMatch: 'full' },
-            { path: 'tasksList', component: TasksListComponent },
+            { path: '', redirectTo: 'list', pathMatch: 'full' },
+            { path: 'list', component: TasksListComponent },
+            { path: 'edit/:id', component: TaskEditComponent },
             { path: 'projects', component: ProjectsComponent },
             { path: 'profile', component: ProfileComponent },
             { path: 'calendar', component: CalendarComponent }
