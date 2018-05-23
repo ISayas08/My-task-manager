@@ -1,0 +1,103 @@
+<div class="home-component home-component--dark-theme">
+  <section 
+  class="home-grid-container home-grid-container--dark-theme"
+  [ngClass]="{
+    'home-grid-container--title-visible': isTitleVisible,
+    'home-grid-container--login-visible': isLogInActive && !isTitleVisible,
+    'home-grid-container--register-visible': !isLogInActive && !isTitleVisible
+  }">
+    <div *ngIf="isTitleVisible; then title; else forms"></div>
+    <nav class="home-grid-container__primary-menu">
+      <a (click)="toggleActiveForm(true)" class="primary-menu__item" [ngClass]="{'primary-menu__item--active': isLogInActive && !isTitleVisible}">Sign In</a>
+      <a (click)="toggleActiveForm(false)" class="primary-menu__item" [ngClass]="{'primary-menu__item--active': !isLogInActive && !isTitleVisible}">Sign Up</a>
+    </nav>
+  </section>
+</div>
+
+<!-- Template for page title -->
+<ng-template #title>
+  <header class="home-grid-container__title">
+    <h1 (click)="resetHome()" class="title__main"
+    [ngClass]="{'title__main--secundary title__main--clickable': !isTitleVisible}"
+    >My Task Manager</h1>
+    <h4 class="title__secundary">Lorem ipsum dolor sit ament</h4>
+  </header>
+</ng-template>
+
+<!-- Template for group sign in / sign up forms -->
+<ng-template #forms>
+  <div *ngIf="true; then title;"></div>
+  <div *ngIf="isLogInActive; then login; else register"></div>
+</ng-template>
+
+<!-- Template for sign in form -->
+<ng-template #login>
+  <div class="home-grid-container__logIn">
+    <form class="form" [formGroup]="signInForm" (ngSubmit)="onLogin()">
+      <h2 class="form__title">Sign in</h2>
+      <p class="field__group">
+        <label class="form__label" for="">User</label>
+        <br>
+        <input formControlName = "user" class="form__field form__field--dark-theme" type="text" required>
+        <span class="form__required-indication">*</span>
+        <!-- user field validation error message -->
+        <span *ngIf="lg_user.invalid && lg_user.touched" class="form__error-message">The user is missing</span>
+      </p>
+      <p class="field__group">
+        <label class="form__label" for="">Password</label>
+        <br>
+        <input formControlName = "pass" class="form__field form__field--dark-theme" type="password" required>
+        <span class="form__required-indication">*</span>
+        <!-- Password field validation error message -->
+        <span *ngIf="lg_pass.invalid && lg_pass.touched" class="form__error-message">At least 6 characters are required</span>
+      </p>
+      <p>
+        <input class="form__buttom form__buttom--dark-theme" type="submit" value="Sign in">
+      </p>
+    </form>
+  </div>
+</ng-template>
+
+<!-- Template for sign up form-->
+<ng-template #register>
+  <div class="home-grid-container__signIn">
+    <form class="form" [formGroup]="signUpForm" (ngSubmit)="onSaveUser()">
+      <h2 class="form__title">Sign up</h2>
+      <p class="field__group">
+        <label class="form__label" for="">User</label>
+        <br>
+        <input formControlName = "user" class="form__field form__field--dark-theme" type="text" required>
+        <span class="form__required-indication">*</span>
+        <!-- user field validation error message -->
+        <span *ngIf="rg_user.invalid && rg_user.touched" class="form__error-message">The user is missing</span>
+      </p>
+      <p class="field__group">
+        <label class="form__label" for="">E-mail</label>
+        <br>
+        <input formControlName = "email" class="form__field form__field--dark-theme" type="Email" required>
+        <span class="form__required-indication">*</span>
+        <!-- Email field validation error message -->
+        <span *ngIf="rg_email.invalid && rg_email.touched" class="form__error-message">The email is invalid</span>
+      </p>
+      <p class="field__group">
+        <label class="form__label" for="">Password</label>
+        <br>
+        <input formControlName = "pass" class="form__field form__field--dark-theme" type="password" required>
+        <span class="form__required-indication">*</span>
+        <!-- Password field validation error message -->
+        <span *ngIf="rg_pass.invalid && rg_pass.touched" class="form__error-message">At least 6 characters are required</span>
+      </p>
+      <p class="field__group">
+        <label class="form__label" for="">Confirm Password</label>
+        <br>
+        <input formControlName = "pass2" class="form__field form__field--dark-theme" type="password" required>
+        <span class="form__required-indication">*</span>
+        <!-- Confirm password field validation error message -->
+        <span *ngIf="!isPasswordsMatch() && rg_pass2.touched" class="form__error-message">The passwords don't match</span>
+      </p>
+      <p>
+        <input class="form__buttom form__buttom--dark-theme" type="submit" value="Sign up" [disabled]="!signUpForm.valid">
+      </p>
+    </form>
+  </div>
+</ng-template>
