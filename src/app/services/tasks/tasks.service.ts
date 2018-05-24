@@ -1,64 +1,88 @@
 import { Injectable } from '@angular/core';
 import { TaskModel } from '../../models/task.model';
+import { indexDebugNode } from '@angular/core/src/debug/debug_node';
+import { BehaviorSubject } from 'rxjs';
+import { SessionService } from '../session/session.service';
+import { UserModel } from '../../models/user.model';
+import { UserService } from '../user/user.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TasksService {
 
-  private tasks: TaskModel[];
+  private tasks$ = new BehaviorSubject([]);
 
-  constructor() {
-    this.tasks = this.getAllTasks();
-  }
+  constructor(
+    private _session: SessionService,
+    private _user: UserService
+  ) { }
 
   //==================================================
   // Shared methods.
   //==================================================
 
   public addOne(task: TaskModel) {
-    this.tasks.push(task);
+    let taskAux = this.tasks$.value;
+    taskAux.push(task);
 
+    this.emitNewTasksList(taskAux);
     this.updateListToStorage();
   }
 
-  public getAllTasks(): TaskModel[] {
-    return localStorage.getItem('tasks') ?
-      JSON.parse(localStorage.getItem('tasks')) : [];
+  public editOne(task: TaskModel) {
+    let taskAux: TaskModel[] = this.tasks$.value;
+    
+    taskAux.filter(t => t.id === task.id).forEach((t, i) => {
+      t.name = task.name;
+      t.project = task.project;
+      t.limit_date = task.limit_date;
+      t.comments = task.comments;
+
+      this.emitNewTasksList(taskAux);
+      this.updateListToStorage();
+    });
   }
 
-  public addTestTasks() {
-    this.addOne(new TaskModel(
-      'Terminar la capacitación',
-      'Bancolombia',
-      '29/5/2018',
-      'Lorem ipsum dolor sit ament'
-    ));
-    this.addOne(new TaskModel(
-      'Tarea de prueba 1',
-      'Bancolombia',
-      '29/5/2018',
-      'Lorem ipsum dolor sit ament'
-    ));
-    this.addOne(new TaskModel(
-      'Tarea de prueba 2',
-      'Bancolombia',
-      '29/5/2018',
-      'Lorem ipsum dolor sit ament'
-    ));
-    this.addOne(new TaskModel(
-      'Tarea de prueba 3',
-      'Bancolombia',
-      '29/5/2018',
-      'Lorem ipsum dolor sit ament'
-    ));
+  public deleteOne(id: string) {
+    let taskAux: TaskModel[] = this.tasks$.value;
+    taskAux.filter(t => t.id === id).forEach((t, i) => {
+      taskAux.splice(i, 1);
+      this.emitNewTasksList(taskAux);
+      this.updateListToStorage();
+    });
+  }
+
+  public getAllTasks(): BehaviorSubject<TaskModel[]> {
+    this.initTaskList();
+    return this.tasks$;
+  }
+
+  private initTaskList() {
+    this.emitNewTasksList(this.loadAllTasks());
   }
 
   //==================================================
   // Local methods.
   //==================================================
 
+  private loadAllTasks() {
+    return this._session.getActiveUser().tasks || [];
+  }
+
   private updateListToStorage() {
-    localStorage.setItem('tasks', JSON.stringify(this.tasks));
+    let activeUser: UserModel = this._session.getActiveUser();
+    activeUser.tasks = this.tasks$.value;
+
+    this._user.editOne(activeUser);
+    this._session.upDateSessionData(activeUser);
+  }
+
+  //==================================================
+  // Emiter
+  //==================================================
+
+  private emitNewTasksList(tasksList: TaskModel[]) {
+    this.tasks$.next(tasksList);
   }
 }

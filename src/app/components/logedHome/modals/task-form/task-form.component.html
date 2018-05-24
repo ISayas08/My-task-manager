@@ -1,0 +1,43 @@
+<div class="new-task-modal">
+  <header class="new-task-modal__header">
+    <h3 class="new-task-modal__title">New Task</h3>
+    <hr>
+  </header>
+  <section class="new-task-model__body">
+    <form (ngSubmit)="onSaveTasks()" class="new-task-modal__form" [formGroup]="newTaskForm">
+      <p class="form__fiel-group">
+        <label class="form__label">Name</label>
+        <br>
+        <input formControlName="name" class="form__field form__field--dark-theme" type="text" required>
+        <span class="form__required-indication">*</span>
+        <!-- user field validation error message -->
+        <span *ngIf="name.invalid && name.touched" class="form__error-message">The task name is required</span>
+      </p>
+      <p class="form__fiel-group">
+        <label class="form__label">Project</label>
+        <br>
+        <input formControlName="project" class="form__field form__field--dark-theme" type="text">
+        <span class="form__required-indication">*</span>
+        <!-- user field validation error message -->
+        <span *ngIf="project.invalid && project.touched" class="form__error-message">The project name is required</span>
+      </p>
+      <p class="form__fiel-group">
+        <label class="form__label">Deadline</label>
+        <br>
+        <input formControlName="limit_date" class="form__field form__field--dark-theme" type="date">
+        <span class="form__required-indication">*</span>
+        <!-- user field validation error message -->
+        <span *ngIf="limit_date.invalid && limit_date.touched" class="form__error-message">The deadline is required</span>
+      </p>
+      <p>
+        <label class="form__label">Comments</label>
+        <br>
+        <textarea formControlName="comments" class="form__field form__field--area form__field-area--dark-theme"></textarea>
+      </p>
+      <p class="form__button-group">
+        <input [disabled]="!newTaskForm.valid" [ngClass]="{'form__button--disabled': !newTaskForm.valid}" class="form__button" type="submit"
+          [value]=" data.isEditing ? 'Edit': 'Save'">
+      </p>
+    </form>
+  </section>
+</div>

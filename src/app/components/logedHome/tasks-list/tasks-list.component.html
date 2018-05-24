@@ -8,7 +8,7 @@
     </div>
   </header>
   <section class="task-list__section">
-    <div (click)="goToEditTask(i)" *ngFor="let task of tasks; let i = index " class="task task--dark-theme">
+    <div (click)="goToEditTask(task)" *ngFor="let task of tasks" class="task task--dark-theme">
       <div class="task__head task__head--dark-theme">
         <h5 class="task__title">{{ task?.name }}</h5>
       </div>
@@ -24,9 +24,15 @@
           <p class="task__comments task__comments--dark-theme" *ngIf="task.comments">{{ task?.comments }}</p>
         </div>
       </div>
+      <div class="task__footer">
+        <div class="task__buttons">
+          <input click-stop-propagation type="button" value="Close" class="task__button">
+          <input click-stop-propagation (click)="deleteTask(task.id)" type="button" value="Delete" class="task__button">
+        </div>
+      </div>
     </div>
   </section>
   <div class="task-list__new-task-button-container">
-    <button class="task-list__new-task-button task-list__new-task-button--dark-theme">+</button>
+    <button (click)="openNewtaskDialog()" class="task-list__new-task-button task-list__new-task-button--dark-theme">+</button>
   </div>
 </div>

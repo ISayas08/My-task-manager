@@ -19,8 +19,21 @@ export class UserService {
   public addOne(newUser: UserModel) {
     if (newUser) {
       this.userList.push(newUser);
-      this.saveAtStorage();
+      this.saveInStorage();
     }
+  }
+
+  public editOne(user: UserModel) {
+
+    this.userList.filter(u => u.id === user.id)
+      .forEach(u => {
+        u.user = user.user,
+          u.email = user.email,
+          u.password = user.password,
+          u.tasks = user.tasks
+      });
+
+    this.saveInStorage();
   }
 
   public getAll() {
@@ -31,7 +44,7 @@ export class UserService {
   // Local methods.
   //==========================================================
 
-  private saveAtStorage() {
-    localStorage.setItem('users', JSON.stringify(this.userList));
+  private saveInStorage(userList = this.userList) {
+    localStorage.setItem('users', JSON.stringify(userList));
   }
 }

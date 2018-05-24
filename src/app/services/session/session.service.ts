@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { UserService } from '../user/user.service';
 import { UserModel } from '../../models/user.model';
+import { TasksService } from '../tasks/tasks.service';
 
 @Injectable({
   providedIn: 'root'
@@ -35,7 +36,11 @@ export class SessionService {
   }
 
   public getActiveUser() {
-    return localStorage.activeUser;
+    return localStorage.activeUser ? JSON.parse(localStorage.activeUser) : null;
+  }
+
+  public upDateSessionData(user: UserModel) {
+    this.saveSession(user);
   }
 
   //==========================================================

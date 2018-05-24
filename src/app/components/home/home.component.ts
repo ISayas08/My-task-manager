@@ -4,6 +4,7 @@ import { UserService } from '../../services/user/user.service';
 import { UserModel } from '../../models/user.model';
 import { SessionService } from '../../services/session/session.service';
 import { Router } from '@angular/router';
+import { ToastService } from '../../services/toast/toast.service';
 
 @Component({
   selector: 'app-home',
@@ -21,7 +22,8 @@ export class HomeComponent implements OnInit {
     private _formBuild: FormBuilder,
     private _user: UserService,
     private _session: SessionService,
-    private _router: Router
+    private _router: Router,
+    private _toast: ToastService
   ) {
     this.isTitleVisible = true;
     this.isLogInActive = true;
@@ -72,20 +74,28 @@ export class HomeComponent implements OnInit {
   private onSaveUser() {
     const userData = this.signUpForm.value;
 
-    this._user.addOne(new UserModel(userData.user, userData.email, userData.pass));
+    const date = new Date();
+    this._user.addOne(
+      new UserModel(
+        date.getTime() + '',
+        userData.user,
+        userData.email,
+        userData.pass
+      )
+    );
     this.signUpForm.reset();
 
-    alert('User Registered.')
+    this._toast.showMessage('User Registered.')
   }
 
   private onLogin() {
     const userData = this.signInForm.value;
 
     if (this._session.logIn(userData.user, userData.pass)) {
-      alert('LogIn Successfull');
+      this._toast.showMessage('LogIn Successfull');
       this._router.navigate(['tasks']);
     } else {
-      alert('The user and the password don\'t match.');
+      this._toast.showMessage('The user and the password don\'t match.');
     }
   }
 
