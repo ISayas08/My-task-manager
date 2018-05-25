@@ -1,3 +1,38 @@
-<p>
-  projects works!
-</p>
+<div class="projects">
+  <div class="projects__header">
+    <h2 class="projets__title">Projects</h2>
+    <hr>
+  </div>
+  <div class="projects__body">
+    <mat-accordion>
+      <mat-expansion-panel  
+        *ngFor="let project of projects"
+        (opened)="project.isExpanded = true"
+        (closed)="project.isExpanded = false"
+      >
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{project.name}}
+          </mat-panel-title>
+          <mat-panel-description>
+            Tasks: {{project.tasks.length}}
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <mat-list>
+          <div class="project__task" *ngFor="let task of project.tasks">
+            <mat-list-item (click)="goToEditTask(task)">
+              <div class="task__title">{{ task.name }}</div>
+              <div class="task__indication" 
+              [ngClass]="{
+                'task__indication--active': !task.isCompleted,
+                'task__indication--complete': task.isCompleted
+              }"></div>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+          </div>
+        </mat-list>
+      </mat-expansion-panel>
+    </mat-accordion>
+    
+  </div>
+</div>

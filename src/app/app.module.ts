@@ -2,9 +2,14 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import {MatDialogModule} from '@angular/material/dialog';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatListModule } from '@angular/material/list';
+
+import { CalendarModule } from 'angular-calendar';
 
 import { FeatureRoutingModule } from './app.routing';
 
@@ -34,8 +39,8 @@ import { StopPropagationDirective } from './directives/stop-propagation.directiv
     TaskFormComponent,
     StopPropagationDirective
   ],
-  entryComponents :[
-    TaskFormComponent    
+  entryComponents: [
+    TaskFormComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +49,11 @@ import { StopPropagationDirective } from './directives/stop-propagation.directiv
     ReactiveFormsModule,
     BrowserAnimationsModule,
     MatDialogModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatExpansionModule,
+    MatDividerModule,
+    MatListModule,
+    CalendarModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
