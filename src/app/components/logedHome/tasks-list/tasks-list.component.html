@@ -7,26 +7,28 @@
       <input (input)="search($event)" class="task-list__search-field task-list__search-field--dark-theme" type="text" placeholder="Search">
     </div>
   </header>
+  <hr>
   <section class="task-list__section">
     <div (click)="goToEditTask(task)" *ngFor="let task of tasks" class="task task--dark-theme">
       <div class="task__head task__head--dark-theme">
-        <h5 class="task__title">{{ task?.name }}</h5>
+        <h5 class="task__title">{{ task?.name }} <span class="task__state-indicator" *ngIf="task.isCompleted">(Completed)</span></h5>
       </div>
       <div class="task__body">
         <p>
           Project: {{ task?.project }}
         </p>
         <p>
-          DeadLine: {{ task?.limit_date }}
+          Deadline: {{ task?.limit_date }}
         </p>
         <div>
           Comments:
-          <p class="task__comments task__comments--dark-theme" *ngIf="task.comments">{{ task?.comments }}</p>
+          <textarea readonly click-stop-propagation class="task__comments task__comments--dark-theme" *ngIf="task.comments">{{ task?.comments }}</textarea>
         </div>
       </div>
       <div class="task__footer">
         <div class="task__buttons">
-          <input click-stop-propagation type="button" value="Close" class="task__button">
+          <input [disabled]="task.isCompleted" click-stop-propagation (click)="toggleTaskState(task)" type="button" value="Close" class="task__button"
+            [ngClass]="{'task__button--disabled': task.isCompleted}">
           <input click-stop-propagation (click)="deleteTask(task.id)" type="button" value="Delete" class="task__button">
         </div>
       </div>

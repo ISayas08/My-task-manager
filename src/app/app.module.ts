@@ -24,6 +24,7 @@ import { CalendarComponent } from './components/logedHome/calendar/calendar.comp
 import { TaskFormComponent } from './components/logedHome/modals/task-form/task-form.component';
 import { MenuComponent } from './components/logedHome/menu/menu.component';
 import { StopPropagationDirective } from './directives/stop-propagation.directive';
+import { AlertComponent } from './components/logedHome/modals/alert/alert.component';
 
 @NgModule({
   declarations: [
@@ -37,10 +38,12 @@ import { StopPropagationDirective } from './directives/stop-propagation.directiv
     ProfileComponent,
     CalendarComponent,
     TaskFormComponent,
-    StopPropagationDirective
+    StopPropagationDirective,
+    AlertComponent
   ],
   entryComponents: [
-    TaskFormComponent
+    TaskFormComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,

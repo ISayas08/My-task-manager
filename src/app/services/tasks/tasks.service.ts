@@ -32,7 +32,7 @@ export class TasksService {
 
   public editOne(task: TaskModel) {
     let taskAux: TaskModel[] = this.tasks$.value;
-    
+
     taskAux.filter(t => t.id === task.id).forEach((t, i) => {
       t.name = task.name;
       t.project = task.project;
@@ -46,10 +46,13 @@ export class TasksService {
 
   public deleteOne(id: string) {
     let taskAux: TaskModel[] = this.tasks$.value;
-    taskAux.filter(t => t.id === id).forEach((t, i) => {
-      taskAux.splice(i, 1);
-      this.emitNewTasksList(taskAux);
-      this.updateListToStorage();
+    taskAux.forEach((t, i) => {
+      if (t.id === id) {
+        taskAux.splice(i, 1);
+        this.emitNewTasksList(taskAux);
+        this.updateListToStorage();
+        return 0;
+      }
     });
   }
 

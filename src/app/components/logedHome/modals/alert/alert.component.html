@@ -1,0 +1,28 @@
+<div class="alert">
+  <ng-container *ngIf="data.isAlert; then alert; else comfirm"></ng-container>
+</div>
+
+<ng-template #alert>
+  <div class="alert__header">
+    <h3 class="alert__title">{{ data.title }}</h3>
+  </div>
+  <div class="alert__body">
+    {{ data.message }}
+  </div>
+  <div class="alert__footer">
+    <input (click)="onAlertDismiss()" type="button" value="Ok">
+  </div>
+</ng-template>
+
+<ng-template #comfirm>
+  <div class="alert__header">
+    <h3 class="alert__title">{{ data.title }}</h3>
+  </div>
+  <div class="alert__body">
+    {{ data.message }}
+  </div>
+  <div class="alert__footer">
+    <input class="alert__button" (click)="oncomfirmDismiss(false)" type="button" value="No">
+    <input class="alert__button" (click)="oncomfirmDismiss(true)" type="button" value="Yes">
+  </div>
+</ng-template>

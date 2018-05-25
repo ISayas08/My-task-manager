@@ -52,7 +52,7 @@ export class TaskFormComponent implements OnInit {
     if (this.data.isEditing) this.editTask(taskObj);
     else this.saveTask(taskObj);
 
-    this.dialogRef.close();
+    this.dialogRef.close(true);
   }
 
   //===================================================

@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { TaskFormComponent } from '../modals/task-form/task-form.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ToastService } from '../../../services/toast/toast.service';
+import { AlertComponent } from '../modals/alert/alert.component';
 
 @Component({
   selector: 'app-tasks-list',
@@ -65,15 +66,50 @@ export class TasksListComponent implements OnInit, OnDestroy {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (data.isEditing) this._message.showMessage('The tasks was edited successfully.');
-      else this._message.showMessage('The tasks was created successfully.');
+      if (result) {
+        if (data.isEditing) this._message.showMessage('The tasks was edited successfully.');
+        else this._message.showMessage('The tasks was created successfully.');
+      }
     });
   }
 
   private deleteTask(id: string) {
-    // TODO Add comfirm.
-    this._task.deleteOne(id);
-    this._message.showMessage('Task deleted successfully.');
+    let dialogRef = this._dialog.open(AlertComponent, {
+      minWidth: '300px',
+      width: '30%',
+      data: {
+        isAlert: false,
+        title: 'Are you sure?',
+        message: 'Do you really want to delete the task?'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this._task.deleteOne(id);
+        this._message.showMessage('Task deleted successfully.');
+      }
+    });
+  }
+
+  private toggleTaskState(task: TaskModel) {
+    let dialogRef = this._dialog.open(AlertComponent, {
+      minWidth: '300px',
+      width: '30%',
+      data: {
+        isAlert: false,
+        title: 'Are you sure?',
+        message: 'Do you really want to close this task?'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        task.isCompleted = true;
+        this._task.editOne(task);
+        this._message.showMessage('Task closed.');
+      }
+    });
   }
 
 }
