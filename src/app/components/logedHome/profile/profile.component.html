@@ -1,10 +1,11 @@
 <div class="profile">
   <div class="profile__head">
-    <h2 class="profile__tile">My Profile</h2>
+    <h2 class="profile__tile profile__tile--dark-theme">My Profile - Edit</h2>
+    <hr>
   </div>
   <div class="profile__body">
-    <form [formGroup]="editUserForm">
-      <p class="field__group">
+    <form class="form" [formGroup]="editUserForm" (ngSubmit)="onUpdateUserData()">
+      <p class="form__field-group">
         <label class="form__label" for="">User</label>
         <br>
         <input formControlName="user" class="form__field form__field--dark-theme" type="text" required>
@@ -12,7 +13,7 @@
         <!-- user field validation error message -->
         <span *ngIf="user.invalid && user.touched" class="form__error-message">The user is missing</span>
       </p>
-      <p class="field__group">
+      <p class="form__field-group">
         <label class="form__label" for="">E-mail</label>
         <br>
         <input formControlName="email" class="form__field form__field--dark-theme" type="Email" required>
@@ -20,7 +21,7 @@
         <!-- Email field validation error message -->
         <span *ngIf="email.invalid && email.touched" class="form__error-message">The email is invalid</span>
       </p>
-      <p class="field__group">
+      <p class="form__field-group">
         <label class="form__label" for="">Password</label>
         <br>
         <input formControlName="pass" class="form__field form__field--dark-theme" type="password" required>
@@ -28,20 +29,18 @@
         <!-- Password field validation error message -->
         <span *ngIf="pass.invalid && pass.touched" class="form__error-message">At least 6 characters are required</span>
       </p>
-      <p class="field__group">
+      <p class="form__field-group">
         <label class="form__label" for="">Confirm Password</label>
         <br>
         <input formControlName="pass2" class="form__field form__field--dark-theme" type="password" required>
         <span class="form__required-indication">*</span>
         <!-- Confirm password field validation error message -->
-        <span *ngIf="!isPasswordsMatch() && pass2.touched" class="form__error-message">The passwords don't match</span>
+        <span *ngIf="!isPasswordsMatch() && pass2.touched && !pass.invalid" class="form__error-message">The passwords don't match</span>
       </p>
-      <p>
-        <input class="form__buttom form__buttom--dark-theme" type="submit" value="Sign up" [disabled]="!editUserForm.valid">
+      <p class="form__button-group ">
+        <input [ngClass]="{'form__buttom--disabled': !editUserForm.valid || !isPasswordsMatch()}" class="form__buttom form__buttom--dark-theme" type="submit"
+          value="Save" [disabled]="!editUserForm.valid || !isPasswordsMatch()">
       </p>
     </form>
-  </div>
-  <div class="profile__footer">
-
   </div>
 </div>

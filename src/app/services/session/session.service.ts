@@ -35,7 +35,7 @@ export class SessionService {
     localStorage.removeItem('activeUser');
   }
 
-  public getActiveUser() {
+  public getActiveUser(): UserModel | null {
     return localStorage.activeUser ? JSON.parse(localStorage.activeUser) : null;
   }
 
